@@ -1,1 +1,0 @@
-MP 'rhysd/vim-wasm'

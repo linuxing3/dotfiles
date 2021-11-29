@@ -3,6 +3,7 @@
 .bash_history
 .config/rclone
 
+.vim/
 .git-credentials
 
 # custom files
