@@ -9,9 +9,9 @@
  (position . 339))
 ("org-refile-last-stored"
  (filename . "~/org/dailytasks.agenda.org")
- (front-context-string . "*** [等待] [#A] Se")
- (rear-context-string . "021-11 November\n")
- (position . 29))
+ (front-context-string . "**** [#B] Arrang")
+ (rear-context-string . "21-11-29 Monday\n")
+ (position . 3710))
 ("core-keybinds.el"
  (filename . "~/.evil.emacs.d/core/core-keybinds.el")
  (front-context-string . "ractive) (switch")
@@ -29,9 +29,9 @@
  (position . 194))
 ("org-capture-last-stored"
  (filename . "~/org/dailytasks.agenda.org")
- (front-context-string . "**** [#B] change")
- (rear-context-string . "21-11-22 Monday\n")
- (position . 926))
+ (front-context-string . "**** [#B] Sub co")
+ (rear-context-string . "Outcome Goal:  \n")
+ (position . 4032))
 ("org"
  (filename . "~/org/")
  (front-context-string . "archived\n  drwxr")
