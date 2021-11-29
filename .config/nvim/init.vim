@@ -1,1 +1,1 @@
-/root/.space-vim/init.vim
+/home/vagrant/.space-vim/init.vim
