@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# emacsclient -t -e "(progn (notmuch) (notmuch-jump-search))"
+emacsclient -c -F "((name . \"dropdown_notmuch-emacs\"))" -e '(progn (notmuch))'
+

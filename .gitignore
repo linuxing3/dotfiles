@@ -1,0 +1,52 @@
+*.bak
+*.data
+.bash_history
+.config/rclone
+
+.git-credentials
+
+# custom files
+
+# temp files directories
+/cache/
+/log/
+!/cache/.gitkeep
+!/log/.gitkeep
+
+# disabled files
+*.swp
+*.disabled
+.idea/
+
+# Compiled Python files
+*.pyc
+
+# Folder view configuration files
+.DS_Store
+Desktop.ini
+
+# Thumbnail cache files
+._*
+Thumbs.db
+
+# Files that might appear on external disks
+.Spotlight-V100
+.Trashes
+
+tags
+
+autoload/plug.vim
+core/autoload/nfo.vim
+core/autoload/spacevim/info.vim
+plugged/*
+*.un~
+private/*
+!private/README.md
+
+.config/Code
+
+.xmark*
+./config/mpv/
+/.config/mpv/watch_later/
+/.config/obs-studio/logs/*.txt
+/.config/obs-studio/profiler_data/*.gz

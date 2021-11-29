@@ -1,0 +1,358 @@
+[icons]
+name = "none"
+
+[icons.overrides]
+update = ""
+uptime = ""
+ping = ""
+# backlight_empty = " 🌑 "
+# backlight_1 = " 🌘 "
+# backlight_2 = " 🌘 "
+# backlight_3 = " 🌘 "
+# backlight_4 = " 🌘 "
+# backlight_5 = " 🌗 "
+# backlight_6 = " 🌗 "
+# backlight_7 = " 🌗 "
+# backlight_8 = " 🌗 "
+# backlight_9  = " 🌖 "
+# backlight_10 = " 🌖 "
+# backlight_11 = " 🌖 "
+# backlight_12 = " 🌖 "
+# backlight_13 = " 🌖 "
+# backlight_full = " 🌕 "
+# backlight_3 = " 🌘 "
+# backlight_2 = " 🌗 "
+# backlight_1 = " 🌖 "
+# music = " 🎼 " " 🎵 " 
+# music = "🎵"
+
+# [[block]]
+# block = "xrandr"
+# icons = true
+# resolution = true
+# interval = 2
+
+# [[block]]
+# block = "pomodoro"
+# length = 25
+# break_length = 5
+# message = "Take a break!"
+# break_message = "Back to work!"
+# enable_i3nagbar = false
+
+[[block]]
+block = "disk_space"
+path = "/"
+alias = "/"
+info_type = "available"
+unit = "GB"
+interval = 20
+warning = 20.0
+alert = 10.0
+
+[[block]]
+block = "focused_window"
+# show_marks = "visible"
+max_width = 45
+
+# [[block]]
+# block = "custom"
+# command = "echo '{\"icon\":\"uptime\",\"state\":\"Idle\", \"text\": \"\"}'"
+# json = true
+# # command = "echo ▶"
+# # cycle = ["echo ON", "echo OFF"]
+# on_click = "cabl 1-play"
+# interval = "once"
+# icons_format = "{icon}"
+
+# [[block]]
+# block = "custom"
+# command = "echo '{\"icon\":\"update\",\"state\":\"Idle\", \"text\": \"\"}'"
+# json = true
+# # cycle = ["echo ON", "echo OFF"]
+# on_click = "cabl 2-list"
+# interval = "once"
+# icons_format = "{icon}"
+
+# [[block]]
+# block = "custom"
+# # command = "echo '{\"icon\":\"weather_thunder\",\"state\":\"Good\", \"text\": \"Test\"}'"
+# command = "echo '{\"icon\":\"ping\",\"state\":\"Idle\", \"text\": \"\"}'"
+# json = true
+# # cycle = ["echo ON", "echo OFF"]
+# on_click = "linkhandler"
+# interval = "once"
+
+# [[block]]
+# block = "music"
+# max_width = 10
+# buttons = ["prev", "play", "next"]
+# on_collapsed_click = "playerctl play"
+
+# [[block]]
+# block = "weather"
+# format = "{weather} {temp}"
+# # format = "{weather} ({location}) {temp}°, {wind} m/s {direction}"
+# # service = { name = "openweathermap", api_key = "ff919dde6e7244856542b3931b367a66", city_id = "4846834", units = "metric" }
+# service = { name = "openweathermap", api_key = "ff919dde6e7244856542b3931b367a66", city_id = "5392952", units = "metric" }
+
+# [[block]]
+# block = "memory"
+# display_type = "memory"
+# format_mem = "{Mup}%"
+# format_swap = "{SUp}%"
+
+# [[block]]
+# block = "notmuch"
+# maildir = "/home/vagrant/Mail/"
+# query = "date:1w.. and tag:unread and tag:inbox and (tag:flagged or tag:ucsb)"
+# threshold_info = 1
+# threshold_warning = 5
+# threshold_critical = 10
+# interval = 300
+# name = "A"
+
+# [[block]]
+# block = "kdeconnect"
+
+[[block]]
+block = "net"
+device = "wlp1s0"
+interval = 5
+
+# [[block]]
+# block = "networkmanager"
+# on_click = "st -e nmtui"
+# device_format = "{icon}"
+
+# [[block]]
+# block = "net"
+# device = "wlp3s0"
+# ssid = false
+# # signal_str
+# signal_strength = false
+# ip = true
+# speed_up = false
+# speed_down = false
+# # graph_up = true
+# # interval = 5
+# # use_bits = false
+
+# [[block]]
+# block = "load"
+# interval = 1
+# format = "{1m}"
+
+# [[block]]
+# block = "bluetooth"
+# #mac = "08:D2:3E:6F:65:39"
+# mac = "00:02:5B:02:A5:9C"
+# hide_disconnected = true
+# # mac = "34:02:86:56:9B:8F"
+# label = " Avantree"
+
+# [[block]]
+# block = "bluetooth"
+# mac = "AC:19:06:00:31:DA"
+# hide_disconnected = true
+# label = " TaoTronics"
+
+# [[block]]
+# block = "bluetooth"
+# mac = "00:00:AB:CD:51:19"
+# hide_disconnected = true
+# label = " Geekee"
+
+# [[block]]
+# block = "bluetooth"
+# mac = "88:D0:39:F9:15:0A"
+# hide_disconnected = false
+# label = " Soundcore"
+
+# [[block]]
+# block = "sound"
+# # on_click = "pavucontrol-qt"
+# on_click = "$TERMINAL -t \"dropdown_pulse\" -e pulsemixer"
+# show_volume_when_muted = true
+
+# [[block]]
+# block = "hueshift"
+# hue_shifter = "redshift"
+# step = 50
+# click_temp = 3500
+
+# [[block]]
+# block = "backlight"
+
+# [[block]]
+# block = "temperature"
+# collapsed = true
+
+# [[block]]
+# block = "memory"
+# # format_mem = "{mum}mb/{mtm}mb({mup}%)"
+# # format_swap = "{sum}mb/{stm}mb({sup}%)"
+# format_mem = "{mupi}%"
+# format_swap = "{mupi}%"
+# display_type = "memory"
+# icons = true
+# clickable = true
+# interval = 15
+# warning_mem = 80
+# warning_swap = 80
+# critical_mem = 95
+# critical_swap = 95
+
+# [[block]]
+# block = "temperature"
+# collapsed = false
+# interval = 10
+# format = "{max}"
+# idle = 55
+# info = 65
+# chip = "*-isa-*"
+
+[[block]]
+block = "cpu"
+on_click = "$TERMINAL -t \"dropdown_pulse\" -e btm"
+interval = 2
+
+# [[block]]
+# block = "battery"
+# driver = "upower"
+# device = "DisplayDevice"
+# # interval = 10
+# format = "{percentage} {time}"
+# # format = "{percentage}% {power}W"
+
+[[block]]
+block = "time"
+interval = 60
+format = "%a %d/%m %R"
+on_click = "notify-send \"$(cal -3)\""
+
+[theme]
+file = "nord.toml"
+# file = "dracula.toml"
+# name = "gruvbox-dark"
+# name = "solarized-dark"
+
+[theme.overrides]
+
+# ## Onedark theme
+# idle_bg = "#282c34"
+# idle_fg = "#c8ccd4"
+# info_bg = "#abb2bf"
+# info_fg = "#353b45"
+# good_bg = "#98c379"
+# # good_fg
+# critical_bg = "#be5046"
+# # critical_fg
+# # separator
+# # separator_bg
+# # separator_fg
+# warning_bg = "#c678dd"
+# # warning_fg
+
+# ## Dracula theme
+idle_bg = "#282936"
+idle_fg = "#e9e9f4"
+info_bg = "#e9e9f4"
+info_fg = "#626483"
+good_bg = "#ebff87"
+good_fg = "#282936"
+good_bg = "#6272a4"
+good_fg = "#f8f8f2"
+critical_bg = "#ea51b2"
+# critical_fg
+# separator
+# separator_bg
+# separator_fg
+warning_bg = "#b45bcf"
+# warning_fg
+
+# ## Gruvbox dark hard
+# idle_bg = "#1d2021"
+# idle_fg = "#fbf1c7"
+# info_bg = "#ebdbb2"
+# info_fg = "#3c3836"
+# # good_bg = "#b8bb26"
+# good_fg = "#3c3836"
+# # critical_bg = "#d65d0e"
+# # critical_fg
+# # separator
+# # separator_bg
+# # separator_fg
+# # warning_bg = "#d3869b"
+# # warning_fg
+
+# ## Nord theme
+idle_bg = "#2e3440"
+idle_fg = "#e5e9f0"
+info_bg = "#8fbcbb"
+info_fg = "#3b4252"
+good_bg = "#8fbcbb"
+good_fg = "#2e3440"
+critical_bg = "#bf616a"
+warning_bg = "#b48ead"
+warning_fg = "#002b36"
+critical_fg = "#002b36"
+separator = "\ue0b2"
+separator_bg = "auto"
+separator_fg = "auto"
+alternating_tint_bg = "#000000"
+alternating_tint_fg = "#000000"
+
+# ## Tomorrow night theme
+# idle_bg = "#1d1f21"
+# idle_fg = "#e0e0e0"
+# info_bg = "#b4b7b4"
+# # info_bg = "#fbd461"
+# info_fg = "#282a2e"
+# good_bg = "#b5bd68"
+# good_fg = "#282a2e"
+# critical_bg = "#a3685a"
+# warning_bg = "#de935f"
+# warning_fg = "#373b41"
+# critical_fg = "#373b41"
+# separator = "\ue0b2"
+# separator_bg = "auto"
+# separator_fg = "auto"
+# alternating_tint_bg = "#000000"
+# alternating_tint_fg = "#000000"
+
+# ## Phd theme
+# idle_bg = "#061229"
+# idle_fg = "#dbdde0"
+# info_bg = "#72b9bf"
+# # info_bg = "#fbd461"
+# info_fg = "#3b4252"
+# good_bg = "#99bf52"
+# good_fg = "#2a3448"
+# critical_bg = "#b08060"
+# warning_bg = "#9989cc"
+# warning_fg = "#002b36"
+# critical_fg = "#002b36"
+# separator = "\ue0b2"
+# separator_bg = "auto"
+# separator_fg = "auto"
+# alternating_tint_bg = "#000000"
+# alternating_tint_fg = "#000000"
+
+## Harmonic dark theme
+# idle_bg = "#0b1c2c"
+# idle_fg = "#cbd6e2"
+# info_bg = "#405c79"
+# # info_bg = "#fbd461"
+# info_fg = "#e5ebf1"
+# good_bg = "#568bbf"
+# good_fg = "#0b1c2c"
+# critical_bg = "#bf5656"
+# warning_bg = "#8b56bf"
+# warning_fg = "#223b54"
+# critical_fg = "#223b54"
+# separator = "\ue0b2"
+# separator_bg = "auto"
+# separator_fg = "auto"
+# alternating_tint_bg = "#000000"
+# alternating_tint_fg = "#000000"

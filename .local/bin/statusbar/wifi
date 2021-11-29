@@ -1,0 +1,23 @@
+#!/bin/bash
+
+INTERFACE="wlp2s0"
+
+
+[[ "$(cat /sys/class/net/$INTERFACE/operstate)" = 'down' ]] && echo DWN && exit
+
+QUALITY=$(grep $INTERFACE /proc/net/wireless | awk '{ print int($3 * 100 / 70) }')
+SSID=$(iwgetid -r)
+SSID_short=cut -c-4 <(echo $SSID)
+
+case $BLOCK_BUTTON in
+	1) "$TERMINAL" -e nmtui-connect ;;
+	2) pgrep -x dunst >/dev/null && notify-send "$SSID: $QUALITY%" ;;
+	3) "$TERMINAL" -e nmtui-edit ;;
+esac
+
+echo $SSID
+# echo "<span background='#ffffff'>$SSID</span>"
+echo $SSID_short # short text
+echo "#83a598" # color
+
+i3 config

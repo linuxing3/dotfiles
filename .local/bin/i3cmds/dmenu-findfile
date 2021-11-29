@@ -1,0 +1,179 @@
+#!/bin/bash
+# AUTHOR: Karthik Chikmagalur
+# TODO: Move cache management into a separate file
+# TODO: Ctrl-Ret to select multiple items
+
+#--------------------------------------------------------------------
+# DMENUFINDFILE: Find and open anything on the system.
+#                Type and hit ENTER to make a selection, or
+#                Hit SHIFT+ENTER to cycle through search backends:
+#                  fd (cached search),
+#                  locate,
+#                  fd (real time search),
+#                  quit
+#                Escape quits at any time.
+#
+# - By default, fd will only cache the user's home directory. Locate
+# will find anything.
+#
+# - Deleted files will show up in the results. Trying to open them
+# will cause the cache to be rebuilt.
+# --------------------------------------------------------------------
+
+#--------------------------------------------------------------------
+# HOW?
+# 0. Maintain fd cache.
+# 1. Search in cache.
+# 2. If no satisfactory results in cache then search with locate.
+# 3. If no satisfactory results in locatedb then rebuild cache and
+# search again.
+# 4. Handle files by extension first and mimetype as fallback
+#--------------------------------------------------------------------
+
+#--------------------------------------------------------------------
+# DEPENDENCIES:
+# dmenu
+# ag
+# locate or mlocate
+# fd
+# setsid (part of the util-linux package)
+#--------------------------------------------------------------------
+
+if [ -f  "$HOME/.dmenurc" ]; then
+    .  $HOME/.dmenurc
+fi
+
+# PARAMETERS - REPLACE AS REQUIRED
+#--------------------------------
+PICKER_CMD="dmenu $DMENU_OPTIONS -i -b -l 10 -p "
+GREP_CMD='ag -i --silent --literal --nonumbers'  #Command to search through the cache
+LOCATE_CMD='locate --regex -i --all '            #Locate command
+FIND_CMD='fd --hidden --follow 
+       --exclude .git 
+       --exclude *~ 
+       --exclude "#*#" 
+       --exclude "*.bak" 
+       --exclude .cache '                        # Command to build the cache
+#--------------------------------
+
+# APPLICATIONS - REPLACE AS REQUIRED
+#----------------------------------------------------------
+# Examples
+# TERMINAL="urxvt"
+# BROWSER=$(xdg-mime query default text/html)
+# EDITOR="$TERMINAL -e /usr/bin/nvim"  # Text editor
+TERMINAL="$TERMINAL"                   # Terminal emulator
+EDITOR="$EDITOR"                       # Text editor
+IMAGEVIEWER="$IMAGEVIEWER"             # Image viewer
+BROWSER="$BROWSER"                     # Web browser
+READER="$READER"                       # Document (PDF etc) viewer
+FILEMANAGER="$FILE"                    # FILE MANAGER
+#----------------------------------------------------------
+
+
+# CACHE MANAGEMENT
+#---------------------------------------------------------
+# By default the cache is stored in /tmp for faster access from tmpfs
+cache="/tmp/dmenufindfile.cache"
+cache_alt="$HOME/.cache/dmenufindfile.cache"
+
+# Rebuild file and folder cache
+function rebuild_cache {
+    cache="$1"
+    $FIND_CMD > "$cache"
+}
+
+# 0. Build a cache if it doesn't exist:
+# This should only happen on a fresh boot
+if [[ ! -e "$cache" ]]; then
+    if [[ -e "$cache_alt" ]]; then
+        cp "$cache_alt" "$cache"
+    else
+        rebuild_cache "$cache"
+        cp "$cache" "$cache_alt"
+    fi
+fi
+#---------------------------------------------------------
+
+# Exit if any of the search commands returns exit code 1
+function exit_if_esc { if [[ $1 != 0 ]]; then exit 1; fi }
+
+
+#---------------------------------------------------------
+# MAKING A CHOICE
+# 1. First try the existing cache:
+choice=$(cat "$cache" | $PICKER_CMD "Open: ")
+exit_if_esc $? # User hit Escape
+
+if [[ ! -f $choice ]] && [[ ! -d $choice ]]; then
+    # 2. Didn't find match, try locatedb:
+    if [[ ! -z $choice ]]; then
+        choice_locate=$($LOCATE_CMD ${choice} | $PICKER_CMD "[Locate] Open: ")
+    fi
+    exit_if_esc $? # User hit Escape
+
+    # 3. If not happy with locate, rebuild cache and:
+    if [[ ! -f "$choice_locate" ]] && [[ ! -d "$choice_locate" ]]; then
+        rebuild_cache "$cache"
+        choice=$($GREP_CMD $choice "$cache" | $PICKER_CMD "[Cache rebuilt] Open: ")
+    else
+        choice="$choice_locate"
+    fi
+fi
+
+echo $choice
+#---------------------------------------------------------
+
+#---------------------------------------------------------
+# 4. HANDLE CHOICE
+case "$choice" in
+    *.png|*.jpg|*.svg|*.bmp) setsid $IMAGEVIEWER "$choice" >/dev/null 2>&1 & ;;
+
+    *.pdf|*.ps) setsid $READER "$choice" >/dev/null 2>&1 & ;;
+
+    *.txt|*.md|*.org|*.conf) setsid $EDITOR "$choice" >/dev/null 2>&1 & ;;
+
+    *.html) setsid $BROWSER "$choice" >/dev/null 2>&1 & ;;
+
+    *.mp4|*.avi|*.flv|*.mkv) setsid $MEDIAPLAYER "$choice" >/dev/null 2>&1 & ;;
+
+    # TODO: Generalize
+    *.mp3|*.m4a|*.wav|*.ogg) mpc insert "$(echo "$choice" | sed -e 's_^Music/__')" && mpc next & ;;
+
+    *.tex|*.sh|*.py) setsid $EDITOR "$choice" >/dev/null 2>&1 & ;;
+
+    *) # no match, so try matching by mimetype
+        mimetype=$(file -Lb --mime-type "$choice")
+        case "$mimetype" in
+            text/html)
+                setsid $BROWSER "$choice" >/dev/null 2>&1 &
+                ;;
+            text/* | inode/x-empty | message/rfc822)
+                setsid $EDITOR "$choice" >/dev/null 2>&1 &
+                ;;
+            inode/directory)
+                setsid $TERMINAL -e $FILEMANAGER "$choice" >/dev/null 2>&1 &
+                ;;
+            image/*)
+                setsid $IMAGEVIEWER "$choice" >/dev/null 2>&1 &
+                ;;
+            *)
+                echo "Could not find matching application"
+                setsid xdg-open "$choice" >/dev/null 2>&1 &
+                exit 1
+                ;;
+        esac
+        ;;
+esac
+#---------------------------------------------------------
+
+#----------
+# Scratch
+#----------
+# TODO: FZF version -- not working
+# function PICKER_CMD {
+#     $TERMINAL -t dropdown_fzf -e fzf +m --prompt "$1"
+# }
+# TODO: Add --help/-h options
+# TODO: Allow searching from $BASE_DIR when supplied as argument
+# xdg-open  "$choice"

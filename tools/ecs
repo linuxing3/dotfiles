@@ -1,0 +1,1 @@
+emacsclient -n -c -s /run/user/1000/emacs/server -a /usr/bin/emacs

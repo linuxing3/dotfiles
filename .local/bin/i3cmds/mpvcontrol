@@ -1,0 +1,21 @@
+#!/bin/bash
+
+case $1 in
+	"pause")
+		mpvcommand='{ "command": ["cycle", "pause"]}' ;;
+	"next")
+		mpvcommand='{ "command": ["keypress", ">"]}' ;;
+	"prev")
+		mpvcommand='{ "command": ["keypress", "<"]}' ;;
+	"seekf")
+		mpvcommand='{ "command": ["seek", "10"]}' ;;
+	"seekb")
+		mpvcommand='{ "command": ["seek", "-10"]}' ;;
+	"full")
+		mpvcommand='{ "command": ["keypress", "f"]}' ;;
+	"quit")
+		mpvcommand='{ "command": ["keypress", "Q"]}' ;;
+esac
+for i in $(ls /tmp/mpvsoc*); do
+	echo $mpvcommand | socat - $i
+done

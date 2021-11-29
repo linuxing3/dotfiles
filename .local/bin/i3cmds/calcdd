@@ -1,0 +1,3 @@
+#!/bin/sh
+# ifinstalled bc && echo "Welcome to the Calculator." && bc -lq
+emacsclient -c -F "((name . \"dropdown_calcdd\"))" -e "(progn (calc) (delete-other-windows))"

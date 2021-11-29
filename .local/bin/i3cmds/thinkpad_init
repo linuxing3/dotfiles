@@ -1,0 +1,39 @@
+#!/bin/sh
+# setxkbmap -option ctrl:nocaps
+# xmodmap -e "remove mod1 = Alt_R"
+# xmodmap -e "add mod4 = Alt_R"
+xmodmap -e 'clear Control'
+xmodmap -e 'remove Lock = Caps_Lock'
+xmodmap -e 'keysym Caps_Lock = Control_L'
+xmodmap -e 'keysym Menu = Control_R'
+# xmodmap -e "keycode 135 = Control_R"
+xmodmap -e 'add Control = Control_L Control_R'
+
+xset r rate 280 45
+# xcape
+
+# Make Right Alt a hyper key
+xmodmap -e 'remove Mod1 = Alt_R'
+xmodmap -e 'remove Mod4 = Hyper_L'
+xmodmap -e 'add Mod3 = Hyper_L'
+xmodmap -e 'keysym Alt_R = Hyper_L'
+# If that last line didn't work, instead do
+# xmodmap -e 'keycode 108 = Hyper_L'
+
+# Settings for the havit keyboard
+# make KP_Prior be recognized as Prior, etc
+xmodmap -e 'keycode 81 = 0xff55'
+xmodmap -e 'keycode 89 = 0xff56'
+
+# # Return is control/return
+# # assign return to control on press, return on release
+# xmodmap -e 'keycode 36 = 0x1234'
+# xmodmap -e 'add Control = 0x1234'
+# # make a fake return key (so we can map it with xcape)
+# xmodmap -e 'keycode any = Return'
+# xcape -e '0x1234=Return'
+
+# Control doubles as escape
+xcape
+
+echo "run at "$(date) >> /home/karthik/initlog

@@ -1,0 +1,5 @@
+#!/bin/sh
+# This is the script that i3 runs to either start tmux in the a new
+# general-purpose terminal or log into a previous session.
+# $TERMINAL $@ -e tmux attach -t gen || $TERMINAL $@ -e tmux new -s gen
+$TERMINAL $@ -e tmux attach -t gen || $TERMINAL $@ -e tmux new -s gen

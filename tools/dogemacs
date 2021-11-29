@@ -1,0 +1,1 @@
+emacs --debug-init --with-profile dog

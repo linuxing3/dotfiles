@@ -1,0 +1,89 @@
+;;;; Emacs Bookmark Format Version 1 ;;;; -*- coding: utf-8-emacs -*-
+;;; This format is meant to be slightly human-readable;
+;;; nevertheless, you probably don't want to edit it.
+;;; -*- End Of Bookmark File Format Version Stamp -*-
+(("Organize Your Life in Plain Text"
+ (filename . "~/.evil.emacs.d/docs/org-mode.org")
+ (front-context-string . "#+TITLE: Org Mod")
+ (rear-context-string)
+ (position . 1))
+("org-mode.org"
+ (filename . "~/.evil.emacs.d/docs/org-mode.org")
+ (front-context-string . "#+TITLE: Org Mod")
+ (rear-context-string)
+ (position . 1))
+(".xinitrc"
+ (filename . "~/.dotfiles/.xinitrc")
+ (front-context-string . "#xset r rate 200")
+ (rear-context-string)
+ (position . 1))
+(".dotfiles"
+ (filename . "~/.dotfiles/")
+ (front-context-string)
+ (rear-context-string . "Nov 15 18:49 ..\n")
+ (position . 150))
+("bin"
+ (filename . "~/EnvSetup/bash/bin/")
+ (front-context-string . "autossh.sh\n  -rw")
+ (rear-context-string . "7K Nov 14 19:14 ")
+ (position . 181))
+("utils.sh"
+ (filename . "~/EnvSetup/bash/custom/utils.sh")
+ (front-context-string . "\n  for DIR in \"E")
+ (rear-context-string . "_local_repo() {\n")
+ (position . 13213))
+("org-refile-last-stored"
+ (filename . "~/org/xingwenju.agenda.org")
+ (front-context-string . "** [学习] [#B] Mod")
+ (rear-context-string . "CATEGORY: Tasks\n")
+ (position . 256))
+("module-org.el"
+ (filename . "~/.evil.emacs.d/modules/module-org.el")
+ (front-context-string . ";; ✂ ✂ ✂ ✂ ✂ ✂ ✂")
+ (rear-context-string)
+ (position . 1))
+("core-keybinds.el"
+ (filename . "~/.evil.emacs.d/core/core-keybinds.el")
+ (front-context-string . "\n;; Since I let ")
+ (rear-context-string . " and much more.\n")
+ (position . 244))
+("modules"
+ (filename . "~/.evil.emacs.d/modules/")
+ (front-context-string . "app+calendar.el\n")
+ (rear-context-string . "45 Nov 14 19:15 ")
+ (position . 185))
+("core"
+ (filename . "~/.evil.emacs.d/core/")
+ (front-context-string . "core-default.el\n")
+ (rear-context-string . "7K Nov 14 19:15 ")
+ (position . 181))
+("Desktop.org"
+ (filename . "~/.scratch.emacs.d/Desktop.org")
+ (front-context-string . "#+title: Emacs D")
+ (rear-context-string)
+ (position . 1))
+("Emacs.org"
+ (filename . "~/.scratch.emacs.d/Emacs.org")
+ (front-context-string . "#+title: Emacs F")
+ (rear-context-string)
+ (position . 1))
+("(embark) Quick start"
+ (front-context-string . "\n3 Quick start\n*")
+ (rear-context-string . "rview,  Up: Top\n")
+ (position . 11965)
+ (filename . "/root/.scratch.emacs.d/elpa/embark-20211015.2350/embark")
+ (info-node . "Quick start")
+ (handler . Info-bookmark-jump))
+("(org-super-agenda) Examples"
+ (front-context-string . "                ")
+ (rear-context-string . "   :tag \"bills\"\n")
+ (position . 5141)
+ (filename . "/root/.scratch.emacs.d/elpa/org-super-agenda-20210928.916/org-super-agenda")
+ (info-node . "Examples")
+ (handler . Info-bookmark-jump))
+("org-capture-last-stored"
+ (filename . "~/org/roam/daily/2021-11-16.org")
+ (front-context-string . "* Added  ~i3stat")
+ (rear-context-string . " 2021-11-16-EST\n")
+ (position . 53))
+)

@@ -1,0 +1,5 @@
+(("default" . ((user-emacs-directory . "~/.scratch.emacs.d")))
+ ("dog" . ((user-emacs-directory . "~/.dog.emacs.d")))
+ ("guix" . ((user-emacs-directory . "~/.guix.emacs.d")))
+ ("scratch" . ((user-emacs-directory . "~/.scratch.emacs.d")))
+ ("slim" . ((user-emacs-directory . "~/.dog.emacs.d"))))

@@ -1,0 +1,62 @@
+#!/bin/bash
+# Dependencies are xclip and xorg-xprop.
+# qrencode required for qrcode generation.
+# groff/zathura required for man pages.
+
+if [ -f ~/.dmenurc ]; then
+ . ~/.dmenurc
+fi
+
+prim="$(xclip -selection clipboard -o)"; [ -z "$prim" ] && exit
+
+PID=$(xprop -id "$(xprop -root | awk '/_NET_ACTIVE_WINDOW\(WINDOW\)/{print $NF}')" | grep -m 1 PID | cut -d " " -f 3)
+PID=$(echo "$(pstree -lpA "$PID" | tail -n 1)" | awk -F'---' '{print $NF}' | sed -re 's/[^0-9]//g')
+cd "$(readlink /proc/"$PID"/cwd)"
+[ -f "$prim" ] && xdg-open "$prim" && exit
+[ -d "$prim" ] && "$TERMINAL" "$prim" && exit
+
+3-websearch() { "$BROWSER" "https://duckduckgo.com/?q=$@" ;}
+wikipedia() { "$BROWSER" "https://en.wikipedia.org/wiki/$@" ;}
+# wiktionary() { "$BROWSER" "https://en.wiktionary.org/wiki/$@" ;}
+# maps() { "$BROWSER" "https://www.openstreetmap.org/search?query=$@" ;}
+# ebay() { "$BROWSER" "https://www.ebay.com/sch/$@" ;}
+
+4-download() {
+    wget -nc -P ~/Downloads -c "$@" && notify-send "Downloading $@"
+}
+
+shorturl() {
+    link=$(curl -s -F"shorten=$@" 0x0.st)
+    if [ $? -eq 0 ]; then
+       echo "$link" | xclip -selection clipboard
+       notify-send "Short url: $link"
+    else
+        notify-send "Error: Could not create short url"
+    fi
+}
+
+1-play() { notify-send "Playing with mpv: $@" ; mpv "$@" ; }
+2-list() { notify-send "Added to playlist: $@"; umpv "$@"; }
+
+5-saveimage() {
+    file=$(date +"%Y_%m_%d_%I_%M_%p")
+    xclip -selection clipboard -t image/png -o > $HOME/Downloads/$file.png
+    if [ $? -eq 0 ]; then
+        notify-send "Saved image to Downloads/$file.png"
+    else
+        notify-send "Error: Could not save image"
+    fi
+}
+
+echo "$prim" | grep "^.*\.[A-Za-z]\+.*" >/dev/null && gotourl() { "$BROWSER" "$@" ;}
+echo "$prim" | grep "^.*@.*\.[A-Za-z]\+$" >/dev/null && email() { xdg-email "$@" ;}
+command -v qrencode >/dev/null && qrcode() { qrencode "$@" -s 10 -o /tmp/qr.png && xdg-open /tmp/qr.png ;}
+man -k "^$prim$" >/dev/null && manual() { man -Tpdf "$prim" | zathura - ;}
+
+if [ $# -ne 0 ]; then 
+    func="$1"
+else
+    func="$(declare -F | awk '{print $3}' | dmenu $DMENU_OPTIONS -p "Plumb \"$(echo "$prim" | cut -c -30)\" to?" -i )"
+fi
+
+[ -z "$func" ] || "$func" "$prim"

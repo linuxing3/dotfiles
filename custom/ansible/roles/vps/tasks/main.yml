@@ -1,0 +1,14 @@
+- name: setting users
+  import_tasks: users.yml
+
+- name: install core packages
+  import_tasks: packages.yml
+   
+- name: import env settings 
+  import_tasks: env.yml
+
+- name: Manage xunqinji 
+  import_tasks: xunqinji.yml
+
+- name: Manage xunqinji
+  import_tasks: xunqinji.yml

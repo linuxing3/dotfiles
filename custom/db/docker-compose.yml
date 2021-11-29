@@ -1,0 +1,68 @@
+version: '3'
+services:
+  adminer:
+    image: adminer
+    container_name: adminer
+    links:
+      - postgres
+      - mariadb
+    restart: always
+    environment:
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=spider
+      - POSTGRES_PASSWORD=20090909
+      - POSTGRES_DB=vpsman
+    ports:
+      - 9433:8080
+  chromedp:
+    image: chromedp/headless-shell:latest
+    container_name: chromedp
+    depends_on:
+      - postgres
+    links:
+      - postgres
+    restart: always
+    ports:
+      - 9222:9222
+    environment:
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=spider
+      - POSTGRES_PASSWORD=20090909
+      - POSTGRES_DB=vpsman
+    volumes:
+      - /root/go/bin:/root/go/bin
+      - ./crontab_job:/etc/cron.d/container_cronjob
+    command:
+      - chmod 644 /etc/cron.d/container_cronjob && cron
+   mariadb:
+     image: "mariadb" # use latest official mariadb version
+     container_name: mariadb
+     ports: 
+       - "3307:3306"
+     environment:
+       - MYSQL_ROOT_PASSWORD=20090909
+       - MYSQL_DATABASE=vpsman
+       - MYSQL_USER=spider
+       - MYSQL_PASSWORD=20090909
+     volumes:
+       - ./init:/docker-entrypoint-initdb.d
+       - mysql-data:/var/lib/mysql 
+  postgres:
+    image: postgres
+    container_name: postgres
+    restart: always
+    ports: 
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=spider
+      - POSTGRES_PASSWORD=20090909
+      - POSTGRES_DB=vpsman
+    volumes:
+      - postgres-data:/var/lib/postgresql/data/ 
+      - ./init:/docker-entrypoint-initdb.d
+
+volumes:
+  postgres-data: 
+  # mysql-data: 

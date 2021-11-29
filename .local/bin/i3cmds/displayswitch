@@ -1,0 +1,17 @@
+#!/bin/bash
+
+
+if [ -e ~/.dmenurc ]; then
+	. ~/.dmenurc
+fi
+
+if [[ -n $1 ]]; then
+	bash ~/.screenlayout/"$1" && ~/.fehbg
+else
+	choice=$( ( ls ~/.screenlayout ; echo "manual" ) | dmenu $DMENU_OPTIONS -i -p "Monitor configuration: ")
+        if [[ $choice == "manual" ]]; then
+            arandr
+        else
+            bash ~/.screenlayout/"$choice" && ~/.fehbg
+        fi
+fi

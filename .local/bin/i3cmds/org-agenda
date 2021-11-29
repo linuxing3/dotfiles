@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+emacsclient -c -F "((name . \"dropdown_org-agenda\"))" -e '
+(let (display-buffer-alist
+      (org-agenda-window-setup (quote only-window)))
+(org-agenda)
+(delete-other-windows)
+(setq-local mode-line-format `(" " . ,mode-line-buffer-identification)))'
+

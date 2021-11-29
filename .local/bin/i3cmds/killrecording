@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# kill -9 "$(cat ~/.recordingpid)"
+
+# # Update i3bar.
+# echo "" > ~/.recordingicon
+# pkill -RTMIN+9 i3blocks
+
+recpid="$(cat /tmp/recordingpid)"
+# kill with SIGTERM, allowing finishing touches.
+kill -15 "$recpid"
+rm -f /tmp/recordingpid
+updateicon ""
+pkill -RTMIN+9 i3blocks
+# even after SIGTERM, ffmpeg may still run, so SIGKILL it.
+sleep 3
+kill -9 "$recpid"
+exit

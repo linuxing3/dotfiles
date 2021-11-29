@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+if [[ -n $(pidof picom) ]]; then
+    kill $(pidof picom)
+    echo "Killing compositor (Picom)"
+else
+    setsid picom -b
+    echo "Starting compositor (picom)"
+fi

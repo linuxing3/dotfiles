@@ -1,0 +1,20 @@
+:15034 {
+    root * /usr/share/caddy
+    file_server
+}
+
+xunqinji.xyz:80 {
+    redir https://xunqinji.xyz{uri}
+}
+
+gce.xunqinji.xyz:80 {
+  reverse_proxy /* 127.0.0.1:7700
+}
+
+nps.gce.xunqinji.xyz:80 {
+  reverse_proxy /* 127.0.0.1:8080
+}
+
+pro.gce.xunqinji.xyz:80 {
+  reverse_proxy /* 127.0.0.1:8889
+}

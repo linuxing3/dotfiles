@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+emacsclient -c -F "((name . \"dropdown_org-capture\"))" -e '
+(let (display-buffer-alist)
+(org-capture)
+(delete-other-windows)
+(setq-local mode-line-format `(" " . ,mode-line-buffer-identification)))'
+

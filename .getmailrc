@@ -1,0 +1,11 @@
+[retriever]
+type = SimplePOP3SSLRetriever
+server = 
+port = 995
+username = 
+password = 
+
+[destination]
+type = Maildir
+path = ~/Mail/
+user = xing

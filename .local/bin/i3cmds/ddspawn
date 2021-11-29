@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# Toggle floating dropdown terminal in i3, or start if non-existing.
+# $1 is	the script run in the terminal.
+# All other args are terminal settings.
+# Terminal names are in dropdown_* to allow easily setting i3 settings.
+
+while getopts ":ht" opt; do
+    case ${opt} in
+        t )
+            run_in_term=1
+            ;;
+        h )
+            echo "ddspawn [-t] script-name
+Run script-name as a \"dropdown\" window in i3
+-t: Run script in terminal"
+            ;;
+        \? ) echo "Usage: ddspawn [-t] script-name"
+             ;;
+    esac
+done
+
+shift $((OPTIND -1))
+
+[ -z "$1" ] && exit
+script=$1
+shift
+
+if xwininfo -tree -root | grep "\"dropdown_$script\"";
+then
+	echo "Window detected."
+	i3 "[title=\"dropdown_$script\"] scratchpad show; [title=\"dropdown_$script\"] move position center"
+else
+	echo "Window not detected... spawning."
+        if [[ -n $run_in_term ]]; then
+            i3 "exec --no-startup-id $TERMINAL -t dropdown_$script -e $script $@"
+        else
+            i3 "exec --no-startup-id $script $@"
+        fi
+fi

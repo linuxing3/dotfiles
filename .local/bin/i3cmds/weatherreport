@@ -1,0 +1,43 @@
+#!/bin/bash
+STATE=$(nmcli networking connectivity)
+
+weatherfile="$HOME/.local/share/weatherreport"
+location="$1"; [ -z "$location" ] || { location="$location+" && rm -f $weatherfile;}
+
+getforecast() { ping -q -c 1 1.1.1.1 >/dev/null || exit 1
+                curl -s "wttr.in/$location?m" > "$HOME/.local/share/weatherreport" || exit 1 ;}
+
+showforecast() { less -S $weatherfile ;}
+error() { less -S <(echo "No Internet Connection!") ;}
+
+if [ -e $weatherfile ] && [ ! -z $(find $weatherfile -mmin -60 2>/dev/null) ]; then
+    echo "Weather forecast available"
+    showforecast
+else if [ $STATE = 'full' ]; then
+         getforecast
+         showforecast
+     else 
+          error
+          exit 1
+     fi
+fi
+
+# showweather() { printf "%s %s" "$(sed '16q;d' "$HOME/.local/share/weatherreport" | grep -wo "[0-9]*%" | sort -n | sed -e '$!d' | sed -e "s/^/⛈ /g" | tr -d '\n')" $(sed '4q;d' "$HOME/.local/share/weatherreport" | grep -o "m\\(-\\)*[0-9]\\+" | tr '\n|m' ' ' | awk '{print "  🌤 ",$1,"°"}');
+# 	sed '13q;d' "$HOME/.local/share/weatherreport" | grep -o "m\\(-\\)*[0-9]\\+" | sort -n -t 'm' -k 2n | sed -e 1b -e '$!d' | tr '\n|m' ' ' | awk '{print " [",$1, "↗",$2,"]" }' ;}
+
+# case $BLOCK_BUTTON in
+#     1) $TERMINAL  -T "weather" -e less -S "$HOME/.local/share/weatherreport" ;;
+#     2) getforecast && showweather ;;
+#     3) pgrep -x dunst >/dev/null && notify-send "🌈 Weather module" "\- Left click for full forecast.
+# - Middle click to update forecast.
+# ☔: Chance of rain/snow
+# ❄: Daily low
+# 🌞: Daily high" ;;
+# esac
+
+# if [ "$(stat -c %y "$HOME/.local/share/weatherreport" >/dev/null 2>&1 | awk '{print $1}')" != "$(date '+%Y-%m-%d')" ]
+# 	then getforecast && showweather
+# 	else showweather
+# fi
+
+# # echo "#84a598"

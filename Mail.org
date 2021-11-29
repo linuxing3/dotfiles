@@ -1,0 +1,392 @@
+#+TITLE: Mail Configuration
+#+PROPERTY: header-args :mkdirp yes
+#+PROPERTY: header-args:emacs-lisp :tangle .guix.emacs.d/lisp/dw-mail.el
+
+* Gpg and Pass
+
+** Config files
+
+Before start generating keys, make sure that you have this config file in place.
+
+#+BEGIN_SRC shell :results output code
+# mkdir ~/.gnupg
+#+END_SRC
+
+Use the followin settings
+
+#+BEGIN_SRC shell :results output code
+# echo "personal-digest-preferences SHA256
+# cert-digest-algo SHA256
+# default-preference-list SHA512 SHA384 SHA256 SHA224 AES256 AES192 AES CAST5 ZLIB BZIP2 ZIP Uncompressed" | tee ~/.gnupg/gpg.conf
+#+END_SRC
+
+Check the config file
+
+#+BEGIN_SRC shell :results output code
+cat ~/.gnupg/gpg.conf
+#+END_SRC
+
+#+RESULTS:
+#+begin_src shell
+personal-digest-preferences SHA256
+cert-digest-algo SHA256
+default-preference-list SHA512 SHA384 SHA256 SHA224 AES256 AES192 AES CAST5 ZLIB BZIP2 ZIP Uncompressed
+#+end_src
+
+** Generate keys
+
+Information: xing wenju <xingwenju@gmail.com>
+paraphrase:  tswc0916
+
+#+begin_src shell
+gpg --full-gen-key
+#+end_src
+
+** Check existings keys
+
+#+begin_src shell
+gpg --list-secret-keys --with-subkey-fingerprint
+#+end_src
+
+** edit master key changing expire date
+
+#+begin_src shell
+# master key
+gpg --edit-key <MASTER KEY FINGERPRINT>
+key <EXISTING ENCRYPT SUB KEY FINGERPRINT>
+expire
+1y
+...
+save
+
+#+end_src
+
+** create a sub key 
+
+#+begin_src shell
+# sub key
+gpg --edit-key <MASTER KEY FINGERPRINT>
+addkey
+Key:       RSA (sign only)
+Key size:  4096
+Valid for: 1y
+...
+save
+#+end_src
+
+** backup 
+
+#+begin_src shell
+umask 077; tar -cf $HOME/gnupg-backup.tar -C $HOME .gnupg
+#+end_src
+
+#+RESULTS:
+
+** gpg agent
+
+~pinentry~ is the application that is responsible to ask you for the gpg passphrase. pinentry have applications for many environments. Such as curses, emacs, gnome, gtk, qt and tty. 
+
+If  using pinentry-emacs. This requires some setup in order for Emacs to handle pinentry requests.
+
+#+begin_src shell
+echo "default-cache-ttl 3600
+allow-loopback-pinentry
+pinentry-program /usr/bin/pinentry-gtk-2
+allow-emacs-pinentry" | tee ~/.gnupg/gpg-agent.conf
+#+end_src
+
+#+RESULTS:
+| default-cache-ttl       |                    3600 |
+| allow-loopback-pinentry |                         |
+| pinentry-program        | /usr/bin/pinentry-emacs |
+| allow-emacs-pinentry    |                         |
+
+** isync
+*** Check isync version
+
+#+begin_src shell
+mbsync --version
+#+end_src
+
+#+RESULTS:
+: isync 1.3.0
+
+*** Check mu version
+
+#+BEGIN_SRC shell :results output code
+  mu --version
+#+END_SRC
+
+#+RESULTS:
+#+begin_src shell
+mu (mail indexer/searcher) version 1.4.15
+Copyright (C) 2008-2020 Dirk-Jan C. Binnema
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+#+end_src
+
+*** Create password 
+
+Will generate =.password-store/mbsync/gmail.gpg=
+
+#+begin_src shell
+pass init <fingerprint>
+pass insert mbsync/gmail
+pass insert mbsync/qq
+# pass mbsync/gmail
+#+end_src
+
+*** Decrypt password 
+
+Input your =paraphrase= set in the beginning
+
+#+begin_src shell
+gpg --decrypt ~/.password-store/mbsync/gmail.gpg
+# pass mbsync/gmail
+#+end_src
+
+*** Sync  Email
+
+#+begin_src shell
+mbsync gmail 
+mu init ~/.mail
+mu index
+#+end_src
+
+* Mail in Emacs with mu4e
+
+[[http://www.djcbsoftware.nl/code/mu/mu4e.html][mu4e]] is the best mail interface I've ever used because it's fast and makes it really easy to power through a huge e-mail backlog.  Love the ability to capture links to emails with org-mode too.
+
+Useful mu4e manual pages:
+
+- [[https://www.djcbsoftware.nl/code/mu/mu4e/MSGV-Keybindings.html#MSGV-Keybindings][Key bindings]]
+- [[https://www.djcbsoftware.nl/code/mu/mu4e/Org_002dmode-links.html#Org_002dmode-links][org-mode integration]]
+
+#+begin_src emacs-lisp
+
+  (use-package mu4e
+    :defer 20 ; Wait until 20 seconds after startup
+    :config
+
+    ;; Load org-mode integration
+    (require 'org-mu4e)
+
+    ;; Refresh mail using isync every 10 minutes
+    (setq mu4e-update-interval (* 10 60))
+    (setq mu4e-get-mail-command "mbsync gmail")
+    (setq mu4e-maildir "~/.mail")
+
+    ;; Use Ivy for mu4e completions (maildir folders, etc)
+    (setq mu4e-completing-read-function #'ivy-completing-read)
+
+    ;; Make sure that moving a message (like to Trash) causes the
+    ;; message to get a new file name.  This helps to avoid the
+    ;; dreaded "UID is N beyond highest assigned" error.
+    ;; See this link for more info: https://stackoverflow.com/a/43461973
+    (setq mu4e-change-filenames-when-moving t)
+
+    ;; Set up contexts for email accounts
+    (setq mu4e-contexts
+          `(,(make-mu4e-context
+              :name "qq"
+              :match-func (lambda (msg) (when msg
+                                          (string-prefix-p "/qq" (mu4e-message-field msg :maildir))))
+              :vars '(
+                      (user-full-name . "Xing Wenju")
+                      (user-mail-address . "linuxing3@qq.com")
+                      (mu4e-sent-folder . "/qq/Sent")
+                      (mu4e-trash-folder . "/qq/Trash")
+                      (mu4e-drafts-folder . "/qq/Drafts")
+                      (mu4e-refile-folder . "/qq/Archive")
+                      (mu4e-sent-messages-behavior . sent)
+                      ))
+            ,(make-mu4e-context
+              :name "gmail"
+              :match-func (lambda (msg) (when msg
+                                          (string-prefix-p "/gmail" (mu4e-message-field msg :maildir))))
+              :vars '(
+                      (mu4e-sent-folder . "/gmail/Sent")
+                      (mu4e-trash-folder . "/gmail/Deleted")
+                      (mu4e-refile-folder . "/gmail/Archive")
+                      ))
+            ))
+    (setq mu4e-context-policy 'pick-first)
+
+    ;; Prevent mu4e from permanently deleting trashed items
+    ;; This snippet was taken from the following article:
+    ;; http://cachestocaches.com/2017/3/complete-guide-email-emacs-using-mu-and-/
+    (defun remove-nth-element (nth list)
+      (if (zerop nth) (cdr list)
+        (let ((last (nthcdr (1- nth) list)))
+          (setcdr last (cddr last))
+          list)))
+    (setq mu4e-marks (remove-nth-element 5 mu4e-marks))
+    (add-to-list 'mu4e-marks
+                 '(trash
+                   :char ("d" . "▼")
+                   :prompt "dtrash"
+                   :dyn-target (lambda (target msg) (mu4e-get-trash-folder msg))
+                   :action (lambda (docid msg target)
+                             (mu4e~proc-move docid
+                                             (mu4e~mark-check-target target) "-N"))))
+
+    ;; Display options
+    (setq mu4e-view-show-images t)
+    (setq mu4e-view-show-addresses 't)
+
+    ;; Composing mail
+    (setq mu4e-compose-dont-reply-to-self t)
+
+    ;; Use mu4e for sending e-mail
+    (setq mail-user-agent 'mu4e-user-agent
+          message-send-mail-function 'smtpmail-send-it
+          smtpmail-smtp-server "smtp.gmail.com"
+          smtpmail-smtp-user "xingwenju" ;; will be prompt for password
+          smtpmail-smtp-service 465
+          smtpmail-stream-type  'ssl)
+
+    ;; Signing messages (use mml-secure-sign-pgpmime)
+    (setq mml-secure-openpgp-signers '("0D955887B42DEFC8B496E38C9AA4F44E6183E2B1"))
+
+    ;; (See the documentation for `mu4e-sent-messages-behavior' if you have
+    ;; additional non-Gmail addresses and want assign them different
+    ;; behavior.)
+
+    ;; setup some handy shortcuts
+    ;; you can quickly switch to your Inbox -- press ``ji''
+    ;; then, when you want archive some messages, move them to
+    ;; the 'All Mail' folder by pressing ``ma''.
+    (setq mu4e-maildir-shortcuts
+          '(("/gmail/Inbox"       . ?i)
+            ("/gmail/Lists/*"     . ?l)
+            ("/gmail/Sent"   . ?s)
+            ("/gmail/Trash"       . ?t)))
+
+    (add-to-list 'mu4e-bookmarks
+                 (make-mu4e-bookmark
+                  :name "All Inboxes"
+                  :query "maildir:/qq/Inbox OR maildir:/gmail/Inbox"
+                  :key ?i))
+
+    ;; don't keep message buffers around
+    (setq message-kill-buffer-on-exit t)
+
+    (setq dw/mu4e-inbox-query
+          "(maildir:/gmail/Inbox OR maildir:/qq/Inbox) AND flag:unread")
+
+    (defun dw/go-to-inbox ()
+      (interactive)
+      (mu4e-headers-search dw/mu4e-inbox-query))
+
+    (dw/leader-key-def
+      "m"  '(:ignore t :which-key "mail")
+      "mm" 'mu4e
+      "mc" 'mu4e-compose-new
+      "mi" 'dw/go-to-inbox
+      "ms" 'mu4e-update-mail-and-index)
+
+    ;; Start mu4e in the background so that it syncs mail periodically
+    (mu4e t))
+
+#+end_src
+
+#+RESULTS:
+: t
+
+Use [[https://github.com/iqbalansari/mu4e-alert][mu4e-alert]] to show notifications when e-mail comes in:
+
+#+begin_src emacs-lisp
+
+  (use-package mu4e-alert
+    :after mu4e
+    :config
+    ;; Show unread emails from all inboxes
+    (setq mu4e-alert-interesting-mail-query dw/mu4e-inbox-query)
+
+    ;; Show notifications for mails already notified
+    (setq mu4e-alert-notify-repeated-mails nil)
+
+    (mu4e-alert-enable-notifications))
+
+#+end_src
+
+Provide the =dw-mail= package so that it can be =require='d:
+
+#+begin_src emacs-lisp
+
+  (provide 'dw-mail)
+
+#+end_src
+
+* Mail Synchronization
+
+Configuration docs: https://manpages.debian.org/unstable/isync/mbsync.1.en.html
+
+#+begin_src conf :tangle .mbsyncrc
+
+  IMAPAccount gmail
+  Host imap.gmail.com
+  User xingwenju@gmail.com
+  # PassCmd "gpg --quiet --for-your-eyes-only --no-tty --decrypt ~/.password-store/mbsync/gmail.gpg"
+  PassCmd "pass mbsync/gmail"
+  SSLType IMAPS
+  CertificateFile /etc/ssl/certs/ca-certificates.crt
+  
+  IMAPStore gmail-remote
+  Account gmail
+  
+  MaildirStore gmail-local
+  Subfolders Verbatim
+  Path ~/.mail/gmail/
+  Inbox ~/.mail/gmail/Inbox
+  
+  Channel gmail
+  Master :gmail-remote:
+  Slave :gmail-local:
+  Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
+  Create Both
+  SyncState *
+
+  IMAPAccount qq
+  Host imap.qq.com
+  Port 993
+  User linuxing3@qq.com
+  PassCmd "pass mbsync/qq"
+  SSLType IMAPS
+  SSLVersions TLSv1.2
+  CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+  # Define the remote from which mail will be synced
+  IMAPStore qq-remote
+  Account qq
+
+  # Define where mail will be stored
+  MaildirStore qq-local
+  Path ~/.mail/qq/
+  Inbox ~/.mail/qq/Inbox/
+  Trash ~/.mail/qq/Trash/
+  SubFolders Verbatim
+
+  # Connect the remote and the local maildir
+  Channel qq
+  Master :qq-remote:
+  Slave :qq-local:
+  Patterns * !"Archive/*"
+  Expunge None
+  CopyArrivalDate yes
+  Sync All
+  Create Slave
+  SyncState *
+
+#+end_src
+
+* Dependencies
+
+#+begin_src scheme :tangle .config/guix/manifests/mail.scm
+
+  (specifications->manifest
+   '("mu"
+     "isync"))
+
+#+end_src

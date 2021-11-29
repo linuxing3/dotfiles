@@ -1,0 +1,3 @@
+#!/bin/sh
+  guix pull --channels=~/.dotifiles/.config/guix/base-channels.scm
+  guix describe --format=channels > ~/.dotfiles/.config/guix/channels.scm

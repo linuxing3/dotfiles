@@ -1,0 +1,63 @@
+#!/bin/bash
+# Will mount a truecrypt volume usb device (specified using dmenu) to $HOME/crypt.
+# If a truecrypt volume is already mounted to $HOME/crypt, it will unmount it instead.
+# TODO: Make $HOME/crypt a variable choosable from dmenu
+
+if [ -e ~/.dmenurc ]; then
+	. ~/.dmenurc
+fi
+
+cryptmount() { 
+    [ -z "$1" ] && exit 1
+
+    if [ ! -d "$HOME/crypt" ]; then
+        echo "$HOME/crypt" does not exist, creating...
+        mkdir "$HOME/crypt" -v
+    fi
+
+    truecrypt -t "$1" "$HOME/crypt/" -p "$(pass files/ansatz-backup)" -k "" --protect-hidden=no
+    if [[ $? == 0 ]]; then
+        echo "Truecrypt volume $1 mounted at $HOME/crypt"
+        notify-send "Truecrypt volume $1"  " mounted at $HOME/crypt"
+    else
+        echo "ERROR: Could not mount $1 at $HOME/crypt"
+        notify-send "ERROR: Could not mount $1 at $HOME/crypt"
+    fi
+}
+
+cryptumount() {
+    truecrypt -t -d "$HOME/crypt"
+    if [[ $? == 0 ]]; then
+        echo "Truecrypt volume unmounted from $HOME/crypt"
+        notify-send "Truecrypt volume unmounted"  "from $HOME/crypt"
+    else
+        echo "ERROR: Could not unmount Truecrypt volume from $HOME/crypt. Device busy?"
+        notify-send "ERROR: Could not unmount Truecrypt" "volume from $HOME/crypt. Device busy?"
+    fi
+}
+
+usbdrives="$(lsblk -rpo "name,type,size,mountpoint" | awk '$2=="part"&&$4==""{printf "%s (%s)\n",$1,$3}')"
+
+if [ ! -z "$usbdrives" ]; then
+   echo "USB drive(s) detected."
+   if [ -x "$(command -v truecrypt)" ]; then
+       already_mounted_dir=$(lsblk -nrpo "name,type,mountpoint" | awk '$1~/truecrypt/ && $2=="dm" && $3~/crypt/ {print $3}')
+
+       if [ -z "$already_mounted_dir" ]; then
+           chosen="$(echo "$usbdrives" | dmenu $DMENU_OPTIONS -i -p "Mount encrypted volume to ~/crypt/?" | awk '{print $1}')"
+           echo "Chosen volume: $chosen"
+           cryptmount "$chosen"
+       else
+           if [[ "$HOME/crypt" == "$already_mounted_dir" ]]; then
+               echo "Truecrypt volume already mounted at $HOME/crypt. Unmounting instead"
+               cryptumount
+           fi
+       fi
+   else
+       notify-send "truecrypt not found. Please install."
+       echo "truecrypt not found. Please install."
+   fi
+else
+    notify-send "No USB drive(s) detected."
+    echo "No USB drive(s) detected."
+fi

@@ -1,0 +1,16 @@
+---
+# This playbook install some goodies for python.
+# Goodies:
+# - ipython
+# - pip
+# - virtualenv
+# - virtualenvwrapper
+# - httpie
+
+- name: install ipython and pip for python
+  apt: 
+    name: ipython
+    state: present
+
+- name: install pyenv
+  command: curl https://pyenv.run | bash

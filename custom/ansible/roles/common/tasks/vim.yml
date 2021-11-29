@@ -1,0 +1,11 @@
+---
+# This playbook install space-vim
+
+- name: install vim and provide a proper vimrc
+  apt: 
+    name: vim 
+    state: present
+
+- name: install awesome SpaceVim
+  sudo: no
+  shell: curl -sLf https://spacevim.org/install.sh | bash

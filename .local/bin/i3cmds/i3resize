@@ -1,0 +1,37 @@
+#!/bin/sh
+# This script was made by `goferito` on Github.
+# Some cleanup by Luke.
+
+[ -z "$1" ] && echo "No direction provided" && exit 1
+distanceStr="4 px or 4 ppt"
+
+moveChoice() {
+  i3-msg resize "$1" "$2" "$distanceStr" | grep '"success":true' || \
+    i3-msg resize "$3" "$4" "$distanceStr"
+}
+
+case $1 in
+  up)
+    moveChoice grow up shrink down
+    ;;
+  down)
+    moveChoice shrink up grow down
+    ;;
+  left)
+    moveChoice shrink right grow left
+    ;;
+  right)
+    moveChoice grow right shrink left
+    ;;
+  double)
+    distanceStr="120 px or 120 ppt"
+    moveChoice grow up shrink down
+    moveChoice grow left shrink right
+    ;;
+  half)
+    distanceStr="120 px or 120 ppt"
+    moveChoice shrink up grow down
+    moveChoice shrink left grow right
+    ;;
+esac
+

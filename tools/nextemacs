@@ -1,0 +1,1 @@
+emacs --debug-init --no-site-file --with-profile guix &

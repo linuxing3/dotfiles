@@ -1,0 +1,13 @@
+[user]
+	name = linuxing3
+	email = linuxing3@qq.com
+[credential]
+    # helper = /usr/local/share/gcm-core/git-credential-manager-core
+    helper = store
+    credentialStore = plaintext
+[credential "https://dev.azure.com"]
+	useHttpPath = true
+[pull]
+	rebase = false
+[init]
+	defaultBranch = main

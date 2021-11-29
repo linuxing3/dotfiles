@@ -1,0 +1,53 @@
+  IMAPAccount gmail
+  Host imap.gmail.com
+  User xingwenju@gmail.com
+  # PassCmd "gpg --quiet --for-your-eyes-only --no-tty --decrypt ~/.password-store/mbsync/gmail.gpg"
+  PassCmd "pass mbsync/gmail"
+  SSLType IMAPS
+  CertificateFile /etc/ssl/certs/ca-certificates.crt
+  
+  IMAPStore gmail-remote
+  Account gmail
+  
+  MaildirStore gmail-local
+  Subfolders Verbatim
+  Path ~/.mail/gmail/
+  Inbox ~/.mail/gmail/Inbox
+  
+  Channel gmail
+  Master :gmail-remote:
+  Slave :gmail-local:
+  Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
+  Create Both
+  SyncState *
+
+  IMAPAccount qq
+  Host imap.qq.com
+  Port 993
+  User linuxing3@qq.com
+  PassCmd "pass mbsync/qq"
+  SSLType IMAPS
+  SSLVersions TLSv1.2
+  CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+  # Define the remote from which mail will be synced
+  IMAPStore qq-remote
+  Account qq
+
+  # Define where mail will be stored
+  MaildirStore qq-local
+  Path ~/.mail/qq/
+  Inbox ~/.mail/qq/INBOX/
+  Trash ~/.mail/qq/Trash/
+  SubFolders Verbatim
+
+  # Connect the remote and the local maildir
+  Channel qq
+  Master :qq-remote:
+  Slave :qq-local:
+  Patterns * !"Archive/*"
+  Expunge None
+  CopyArrivalDate yes
+  Sync All
+  Create Slave
+  SyncState *

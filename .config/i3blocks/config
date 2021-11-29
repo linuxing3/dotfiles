@@ -1,0 +1,149 @@
+##############
+## DEFAULTS ##
+##############
+command=~/.local/bin/statusbar/$BLOCK_NAME
+separator_block_width=20
+color=#F3F4F5
+markup=pango
+align=center
+#color=#666666
+
+##############
+##  BLOCKS  ##
+##############
+
+# [record]
+# command=cat /tmp/recordingicon
+# interval=once
+# signal=9
+
+# [music]
+# label=🎼
+# interval=once
+# signal=11
+
+# [news]
+# label=📰
+# interval=once
+# signal=6
+
+# [iplocate]
+# interval=30
+
+# [pacpackages]
+# label=📦
+# interval=once
+# signal=8
+
+# [torrent]
+# interval=20
+# signal=7
+
+[window title]
+command=xtitle -s
+min_width=800
+align=center
+interval=persist
+
+[mediaplayer]
+command=mediaplayer
+instance=mpv
+interval=5
+signal=10
+
+[weather]
+color=#d3869b
+command=weather
+interval=2400
+signal=5
+
+[bandwidth]
+instance=wlp2s0
+interval=10
+
+[ipaddress]
+interval=7200
+signal=13
+
+# [iface]
+# interval=once
+# signal=14
+
+# [mailbox]
+# label=📬
+# interval=180
+# signal=12
+
+#[memory]
+#interval=30
+#label=🧠
+
+# [cpu]
+# interval=5
+# label=💻
+
+
+# [volume]
+# interval=once
+# signal=10
+
+#[disk]
+#interval=60
+#command=disk /
+
+#[disk]
+#interval=60
+#command=disk /home 🏠
+
+# [battery]
+# command=battery BAT0
+# interval=5
+
+[wifi]
+command=bash wifi
+label=WIFI
+label=直
+interval=10
+
+[cpu_usage2]
+command=cpu_usage2 -t 4 -d 0 -l µ
+markup=pango
+interval=persist
+#min_width=CPU 100.00%
+#refresh_time=4
+#label=💻
+#WARN_PERCENT=50
+#CRIT_PERCENT=80
+#DECIMALS=2
+
+[volume]
+command=bash volume
+#label=VOL
+label=
+instance=Master
+#instance=PCM
+interval=once
+signal=10
+
+[calendar]
+# color=#8ec07c
+color=#ebdbb2 #color
+command=bash calendar
+label=
+interval=1
+
+[time]
+color=#ebdbb2 #color
+command=bash time
+label=
+interval=1
+
+# [clock]
+# label=📅
+# interval=30
+
+# [internet]
+# interval=10
+
+# [help]
+# interval=once

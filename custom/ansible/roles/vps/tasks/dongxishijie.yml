@@ -1,0 +1,8 @@
+- name: restart caddy
+  shell: systemctl restart caddy
+
+- name: restart xray
+  shell: systemctl restart xray
+
+- name: restart trojan
+  shell: systemctl restart xray

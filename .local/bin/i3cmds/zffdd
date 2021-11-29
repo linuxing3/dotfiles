@@ -1,0 +1,11 @@
+#!/bin/bash
+# cd $HOME
+# if [ ! -p .ffpipe ]; then
+#     mkfifo .ffpipe
+# fi
+
+# open <.ffpipe &
+# zff > .ffpipe
+
+# open < <(zff)
+zff | open

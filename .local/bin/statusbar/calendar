@@ -1,0 +1,51 @@
+#!/bin/bash
+
+width=200
+height=200
+datefmt="+%a, %b %d, %Y"
+x=1920
+
+OPTIND=1
+while getopts ":f:W:H:" opt; do
+    case $opt in
+        f) datefmt="$OPTARG" ;;
+        W) width="$OPTARG" ;;
+        H) height="$OPTARG" ;;
+        \?)
+            echo "Invalid option: -$OPTARG" >&2
+            exit 1
+            ;;
+        :)
+            echo "Option -$OPTARG requires an argument." >&2
+            exit 1
+            ;;
+    esac
+done
+
+case $BLOCK_BUTTON in
+	1) pgrep -x dunst >/dev/null && notify-send "$(cal --color=always | sed "s/..7m/<b><span color=\"red\">/;s/..27m/<\/span><\/b>/")" && notify-send "Appointments" "$(calcurse -D ~/.config/calcurse -d3)" ;;
+	2) "$TERMINAL" -e calcurse -D ~/.config/calcurse ;;
+	3) pgrep -x dunst >/dev/null && notify-send "📅 Time/date module" "\- Left click to show upcoming appointments for the next three days via \`calcurse -d3\` and show the month via \`cal\`
+- Middle click opens calcurse if installed" ;;
+esac
+
+# case "$BLOCK_BUTTON" in
+#   1|2|3)
+#
+# 	# the position of the upper left corner of the popup
+# 	#posX=$(($BLOCK_X - $width / 2))
+# 	posX=1670
+# 	#posY=$(($BLOCK_Y - $height))
+# 	posY=18
+#
+#
+# 	i3-msg -q "exec yad --calendar \
+#         --width=$width --height=$height \
+# 	    --undecorated --fixed \
+# 	    --close-on-unfocus --no-buttons \
+# 	    --posx=$posX --posy=$posY \
+# 	    > /dev/null"
+# esac
+
+date "$datefmt" #full
+date "$datefmt" #short
