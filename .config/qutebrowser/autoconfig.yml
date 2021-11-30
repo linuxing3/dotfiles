@@ -14,3 +14,7 @@ settings:
     global: 16pt
   fonts.downloads:
     global: default_size default_family
+  tabs.tabs_are_windows:
+    global: false
+  tabs.title.alignment:
+    global: left

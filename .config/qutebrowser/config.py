@@ -1,5 +1,5 @@
 # Open every tab as a new window, Vimb style
-c.tabs.tabs_are_windows = True
+c.tabs.tabs_are_windows = False
 c.tabs.show = "multiple"
 c.tabs.last_close = "close"
 
@@ -15,12 +15,12 @@ c.fonts.hints = "bold 20pt monospace"
 c.fonts.web.family.standard = "Bitstream Vera Sans"
 c.fonts.web.family.serif = "Bitstream Vera Serif"
 c.fonts.web.family.sans_serif = "Bitstream Vera Sans"
-c.fonts.web.family.fixed = "Fira Mono"
+c.fonts.web.family.fixed = "Roboto Mono"
 c.fonts.web.size.default = 20
 c.fonts.web.size.minimum = 18
 c.fonts.statusbar = "16pt Cantarell"
 c.fonts.default_size = "18pt"
-c.fonts.default_family = "Hack"
+c.fonts.default_family = "Roboto Mono"
 
 # Use dark mode where possible
 c.colors.webpage.darkmode.enabled = True
