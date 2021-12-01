@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: chinese input
+# key: cn
+# uuid: cn
+# --
+* 中文输入${1:content}

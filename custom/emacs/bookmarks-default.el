@@ -28,10 +28,10 @@
  (rear-context-string . "t 14 15:09 eggo\n")
  (position . 194))
 ("org-capture-last-stored"
- (filename . "~/org/roam/2021-11-30-party_discipline_and_regulations.org")
- (front-context-string . "* The discipline")
+ (filename . "~/org/roam/2021-11-30-k12_education_for_kids.org")
+ (front-context-string . "* 数学\n* 英语\n* 中文实验")
  (rear-context-string . "ate: 2021-11-30\n")
- (position . 129))
+ (position . 148))
 ("org"
  (filename . "~/org/")
  (front-context-string . "archived\n  drwxr")
