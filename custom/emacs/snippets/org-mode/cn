@@ -3,4 +3,4 @@
 # key: cn
 # uuid: cn
 # --
-输入 ${1:content}
+输入${1:content}
