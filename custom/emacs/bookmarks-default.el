@@ -28,10 +28,10 @@
  (rear-context-string . "t 14 15:09 eggo\n")
  (position . 194))
 ("org-capture-last-stored"
- (filename . "~/org/roam/2021-11-30-k12_education_for_kids.org")
- (front-context-string . "* 数学\n* 英语\n* 中文实验")
- (rear-context-string . "ate: 2021-11-30\n")
- (position . 148))
+ (filename . "~/org/roam/daily/2021-12-01.org")
+ (front-context-string . "* Emacs的原生操作\n\n**")
+ (rear-context-string . "e: 2021-12-01\n\n\n")
+ (position . 115))
 ("org"
  (filename . "~/org/")
  (front-context-string . "archived\n  drwxr")
