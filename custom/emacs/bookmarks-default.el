@@ -28,10 +28,10 @@
  (rear-context-string . "t 14 15:09 eggo\n")
  (position . 194))
 ("org-capture-last-stored"
- (filename . "~/org/dailytasks.agenda.org")
- (front-context-string . "**** [#B] Sub co")
- (rear-context-string . "Outcome Goal:  \n")
- (position . 4032))
+ (filename . "~/org/roam/2021-11-30-party_discipline_and_regulations.org")
+ (front-context-string . "* The discipline")
+ (rear-context-string . "ate: 2021-11-30\n")
+ (position . 129))
 ("org"
  (filename . "~/org/")
  (front-context-string . "archived\n  drwxr")
