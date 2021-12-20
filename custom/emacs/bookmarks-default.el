@@ -8,10 +8,10 @@
  (rear-context-string . " 0 Nov 23 16:02 ")
  (position . 339))
 ("org-refile-last-stored"
- (filename . "~/org/dailytasks.agenda.org")
- (front-context-string . "**** [#B] Arrang")
- (rear-context-string . "21-11-29 Monday\n")
- (position . 3710))
+ (filename . "~/org/works.agenda.org")
+ (front-context-string . "** DONE [#C] 订购电")
+ (rear-context-string . " To be Archived\n")
+ (position . 6706))
 ("core-keybinds.el"
  (filename . "~/.evil.emacs.d/core/core-keybinds.el")
  (front-context-string . "ractive) (switch")
@@ -28,10 +28,10 @@
  (rear-context-string . "t 14 15:09 eggo\n")
  (position . 194))
 ("org-capture-last-stored"
- (filename . "~/org/roam/daily/2021-12-01.org")
- (front-context-string . "* Emacs的原生操作\n\n**")
- (rear-context-string . "e: 2021-12-01\n\n\n")
- (position . 115))
+ (filename . "~/org/dailytasks.agenda.org")
+ (front-context-string . "**** [#B] 云聚餐   ")
+ (rear-context-string . " 2021-12-03 星期五\n")
+ (position . 3230))
 ("org"
  (filename . "~/org/")
  (front-context-string . "archived\n  drwxr")
