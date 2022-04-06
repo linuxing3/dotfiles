@@ -18,6 +18,14 @@ tools
 archive
 mail
 
+\.config/QtProject.conf
+\.config/dconf/user
+\.config/mimeapps.list
+\.config/qutebrowser/bookmarks/urls
+\.config/qutebrowser/quickmarks
+\.osh-update
+\.profile
+
 ^/.*\.tmp
 ^/.*\.eln
 ^/.*\.org
