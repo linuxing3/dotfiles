@@ -226,3 +226,6 @@ alias xd="drit -v /home/wjb:/root -v /home/wjb/.evil.emacs.d:/root/.emacs.d linu
 alias xa="drit -v /home/wjb:/root -v /home/wjb/.evil.emacs.d:/root/.emacs.d linuxing3/aarch64-alpine"
 
 alias idea="flatpak run com.jetbrains.IntelliJ-IDEA-Community"
+alias vscode="flatpak run com.visualstudio.code"
+alias zeal="flatpak install flathub org.zealdocs.Zeal"
+alias argo="docker run -it linuxing3/aarch64-alpine-node:v2 go"

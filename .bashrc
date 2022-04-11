@@ -20,6 +20,7 @@ plugins=(
   vim
   #nvm
   go
+  java
   #rust
   #starship
 )
