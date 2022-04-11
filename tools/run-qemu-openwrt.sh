@@ -10,7 +10,7 @@ HDA=/home/wjb/Downloads/openwrt/openwrt-19.07.9-armvirt-64-root.ext4
 # configure interface with static ip to avoid overlapping routes
 # ip addr add 192.168.1.101/24 dev $LAN
 
-qemu \
+qemu-system-aarch64 \
   -M virt -nographic -m 1024m \
   -cpu cortex-a53 -smp 4 \
   # -device virtio-net-pci,netdev=lan \

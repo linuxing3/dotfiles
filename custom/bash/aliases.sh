@@ -221,3 +221,8 @@ alias dria="sudo docker images | awk 'NR!=1{ print \$3 }' | xargs sudo docker rm
 # alias mysql="docker exec -it mysql mysql"
 # alias psql="docker exec -it db psql"
 # alias etcdctl="docker exec -it etcd etcdctl"
+
+alias xd="drit -v /home/wjb:/root linuxing3/aarch64-debian"
+alias xa="drit -v /home/wjb:/root linuxing3/aarch64-alpine"
+
+alias idea="flatpak run com.jetbrains.IntelliJ-IDEA-Community"
