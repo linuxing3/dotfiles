@@ -222,8 +222,8 @@ alias dria="sudo docker images | awk 'NR!=1{ print \$3 }' | xargs sudo docker rm
 # alias psql="docker exec -it db psql"
 # alias etcdctl="docker exec -it etcd etcdctl"
 
-alias xd="drit -v /home/wjb:/root -v /home/wjb/.evil.emacs.d:/root/.emacs.d linuxing3/aarch64-debian"
-alias xa="drit -v /home/wjb:/root -v /home/wjb/.evil.emacs.d:/root/.emacs.d linuxing3/aarch64-alpine"
+alias xd="drit -v /home/wjb:/home/wjb linuxing3/aarch64-debian"
+alias xa="drit -v /home/wjb:/root -v /home/wjb/.emacs.d:/root/.emacs.d linuxing3/aarch64-alpine"
 
 alias idea="flatpak run com.jetbrains.IntelliJ-IDEA-Community"
 alias vscode="flatpak run com.visualstudio.code"
