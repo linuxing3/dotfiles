@@ -1,5 +1,5 @@
 export OSH=~/.oh-my-bash
-OSH_THEME="mairan"
+OSH_THEME="font"
 CASE_SENSITIVE="true"
 ENABLE_CORRECTION="true"
 OSH_CUSTOM=~/.dotfiles/custom/bash
@@ -16,6 +16,7 @@ aliases=(
 plugins=(
   bashmarks
   git
+  snap
   #fzf
   vim
   #nvm
@@ -25,4 +26,4 @@ plugins=(
   #starship
 )
 source $OSH/oh-my-bash.sh
-PATH=$PATH:/usr/local/toolchain/gcc-linaro-7.4.1-2019.02-x86_64_aarch64-linux-gnu/bin
+
