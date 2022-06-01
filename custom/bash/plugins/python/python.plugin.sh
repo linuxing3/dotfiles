@@ -63,5 +63,5 @@ alias danv="conda env create"
 alias daav="conda activate"
 
 # Bootstrap
-vvv
+init-conda
 

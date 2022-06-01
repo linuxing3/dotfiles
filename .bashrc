@@ -21,8 +21,9 @@ plugins=(
   #nvm
   go
   java
+  python
   #rust
   #starship
 )
 source $OSH/oh-my-bash.sh
-PATH=$PATH:/usr/local/toolchain/gcc-linaro-7.4.1-2019.02-x86_64_aarch64-linux-gnu/bin
+
