@@ -19,14 +19,10 @@ plugins=(
   snap
   #fzf
   vim
-  python
   #nvm
   go
   java
-  python
   #rust
   #starship
 )
 source $OSH/oh-my-bash.sh
-
-. "$HOME/.cargo/env"
