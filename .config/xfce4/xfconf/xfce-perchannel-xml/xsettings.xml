@@ -16,15 +16,15 @@
   <property name="Xft" type="empty">
     <property name="DPI" type="int" value="180"/>
     <property name="Antialias" type="int" value="1"/>
-    <property name="Hinting" type="int" value="0"/>
-    <property name="HintStyle" type="string" value="hintnone"/>
-    <property name="RGBA" type="empty"/>
+    <property name="Hinting" type="int" value="1"/>
+    <property name="HintStyle" type="string" value="hintfull"/>
+    <property name="RGBA" type="string" value="none"/>
   </property>
   <property name="Gtk" type="empty">
     <property name="CanChangeAccels" type="empty"/>
     <property name="ColorPalette" type="empty"/>
-    <property name="FontName" type="string" value="Cantarell 11"/>
-    <property name="MonospaceFontName" type="string" value="Fira Mono 10"/>
+    <property name="FontName" type="string" value="Noto Sans Mono 6"/>
+    <property name="MonospaceFontName" type="string" value="Noto Sans Mono 6"/>
     <property name="IconSizes" type="empty"/>
     <property name="KeyThemeName" type="empty"/>
     <property name="ToolbarStyle" type="empty"/>
@@ -35,6 +35,8 @@
     <property name="CursorThemeName" type="string" value="Adwaita"/>
     <property name="CursorThemeSize" type="empty"/>
     <property name="DecorationLayout" type="string" value="menu:minimize,maximize,close"/>
+    <property name="DialogsUseHeader" type="empty"/>
+    <property name="TitlebarMiddleClick" type="empty"/>
   </property>
   <property name="Gdk" type="empty">
     <property name="WindowScalingFactor" type="empty"/>

@@ -28,3 +28,4 @@ plugins=(
 )
 source $OSH/oh-my-bash.sh
 
+. "$HOME/.cargo/env"
