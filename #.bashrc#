@@ -19,7 +19,6 @@ plugins=(
   snap
   #fzf
   vim
-  python
   #nvm
   go
   java
@@ -27,4 +26,3 @@ plugins=(
   #starship
 )
 source $OSH/oh-my-bash.sh
-
