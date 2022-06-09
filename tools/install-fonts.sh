@@ -6,6 +6,29 @@ sudo apt-get install unzip -y
 fonts="FiraCode Hack JetBrainsMono RobotoMono SourceCodePro IBMPlexMono"
 version="2.1.0"
 
+setup_console_font() {
+	echo "
+	# CONFIGURATION FILE FOR SETUPCON
+
+	# Consult the console-setup(5) manual page.
+
+	ACTIVE_CONSOLES="/dev/tty[1-6]"
+
+	CHARMAP="UTF-8"
+
+	CODESET="Lat38"
+	FONTFACE="TerminusBold"
+	FONTSIZE="11x22"
+
+	VIDEOMODE=
+
+	# The following is an example how to use a braille font
+	# FONT='lat9w-08.psf.gz brl-8x8.psf'
+	" 
+
+	sudo dpkg-reconfigure console-setup
+}
+
 fontface=$(dialog --title " Nerd Fonts 一键安装自动脚本" \
 	--checklist "请输入:" 20 70 5 \
 	"FiraCode" "Fira Code Nerd fonts" 0 \
@@ -14,6 +37,7 @@ fontface=$(dialog --title " Nerd Fonts 一键安装自动脚本" \
 	"RobotoMono" "Roboto Mono" 0 \
 	"SourceCodePro" "Source Code Pro" 0 \
 	"IBMPlexMono" "IBM Plex Mono" 0 \
+	"ConsoleFont" "Setup Console Font" 0 \
 	3>&1 1>&2 2>&3 3>&1)
 
 location="/usr/share/fonts/truetype/${fontface}"
@@ -49,3 +73,8 @@ fi
 
 echo "For all fonts, clone the repository and install"
 echo "git clone https://github.com/ryanoasis/nerd-fonts"
+
+echo "Setup console font to protect your eyes..."
+setup_console_font
+echo "Enjoy!"
+

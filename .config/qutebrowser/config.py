@@ -9,23 +9,23 @@ c.session.lazy_restore = True
 c.content.autoplay = False
 
 # Scale pages and UI better for hidpi
-c.fonts.hints = "bold 20pt monospace"
+c.fonts.hints = "bold 16pt monospace"
 
 # Better default fonts
 c.fonts.web.family.standard = "Bitstream Vera Sans"
 c.fonts.web.family.serif = "Bitstream Vera Serif"
 c.fonts.web.family.sans_serif = "Bitstream Vera Sans"
-c.fonts.web.family.fixed = "Roboto Mono"
-c.fonts.web.size.default = 20
-c.fonts.web.size.minimum = 18
-c.fonts.statusbar = "16pt Cantarell"
-c.fonts.default_size = "18pt"
-c.fonts.default_family = "Roboto Mono"
+c.fonts.web.family.fixed = "Noto Sans Mono"
+c.fonts.web.size.default = 16
+c.fonts.web.size.minimum = 14
+c.fonts.statusbar = "14pt Cantarell"
+c.fonts.default_size = "16pt"
+c.fonts.default_family = "Noto Sans Mono"
 
 # Use dark mode where possible
-c.colors.webpage.darkmode.enabled = True
+c.colors.webpage.darkmode.enabled = False
 c.colors.webpage.darkmode.policy.images = "never"
-c.colors.webpage.bg = "black"
+c.colors.webpage.bg = "white"
 
 # Automatically turn on insert mode when a loaded page focuses a text field
 # c.input.insert_mode.auto_load = True

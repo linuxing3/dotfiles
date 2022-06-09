@@ -2,17 +2,17 @@
 
 # Setup fzf
 # ---------
-if [[ ! "$PATH" == *$HOME/.fzf/bin* ]]; then
-  export PATH="${PATH:+${PATH}:}${HOME}/.fzf/bin"
-fi
-
-# Auto-completion
-# ---------------
-[[ $- == *i* ]] && source "${HOME}/.fzf/shell/completion.bash" 2> /dev/null
-
-# Key bindings
-# ------------
-source "${HOME}/.fzf/shell/key-bindings.bash"
+# if [[ ! "$PATH" == *$HOME/.fzf/bin* ]]; then
+#   export PATH="${PATH:+${PATH}:}${HOME}/.fzf/bin"
+# fi
+#
+# # Auto-completion
+# # ---------------
+# [[ $- == *i* ]] && source "${HOME}/.fzf/shell/completion.bash" 2> /dev/null
+#
+# # Key bindings
+# # ------------
+# source "${HOME}/.fzf/shell/key-bindings.bash"
 
 export FZ_DEFAULT_COMMAND="fd --exclude={.git,.idea,.vscode,.sass-cache,node_modules,build} --type f"
 

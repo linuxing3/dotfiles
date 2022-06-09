@@ -19,11 +19,10 @@ alert = #bd2c40
 underline-1 = #c792ea
 
 [bar/panel]
-bottom = true
 width = 100%
-height = 3% 
+height = 35
 offset-x = 0
-offset-y = 0 
+offset-y = 0
 fixed-center = true
 enable-ipc = true
 
@@ -42,14 +41,13 @@ padding-right = 1
 
 module-margin = 1
 
-font-0 = "Cantarell:size=10:weight=bold;2"
-font-1 = "Font Awesome:size=10;2"
-font-2 = "Material Icons:size=10;5"
-font-3 = "Fira Mono:10;-3"
+font-0 = "Cantarell:size=18:weight=bold;2"
+font-1 = "Font Awesome:size=14;2"
+font-2 = "Material Icons:size=20;5"
+font-3 = "Fira Mono:size=13;-3"
 
-modules-left = exwm exwm-path
-modules-center = spotify
-modules-right = telegram mu4e cpu temperature battery date
+modules-left = exwm-workspace
+modules-right = cpu temperature battery date
 
 tray-position = right
 tray-padding = 2
@@ -58,52 +56,12 @@ tray-maxsize = 28
 cursor-click = pointer
 cursor-scroll = ns-resize
 
-; [module/exwm]
-; type = custom/ipc
-; hook-0 = emacsclient -e "(dw/polybar-exwm-workspace)" | sed -e 's/^"//' -e 's/"$//'
-
-; format-underline = ${colors.underline-1}
-; format-background = ${colors.background-alt}
-; format-padding = 1
-
-; [module/exwm-path]
-; type = custom/ipc
-; hook-0 = emacsclient -e "(dw/polybar-exwm-workspace-path)" | sed -e 's/^"//' -e 's/"$//'
-; format-foreground = #f78c6c
-; initial = 1
-
-; [module/spotify]
-; type = custom/script
-; exec = ~/.config/polybar/player-status.sh
-; interval = 3
-
-; [module/mu4e]
-; type = custom/ipc
-; hook-0 = emacsclient -e '(dw/polybar-mail-count 500)' | sed -e 's/^"//' -e 's/"$//'
-; initial = 1
-; format-underline = ${colors.underline-1}
-; click-left = emacsclient -e '(dw/go-to-inbox)'
-
-; [module/telegram]
-; type = custom/ipc
-; hook-0 = emacsclient -e '(dw/polybar-telegram-chats)' | sed -e 's/^"//' -e 's/"$//'
-; format-padding = 3
-; initial = 1
-
-; [module/xkeyboard]
-; type = internal/xkeyboard
-; blacklist-0 = num lock
-
-; format-prefix-font = 1
-; format-prefix-foreground = ${colors.foreground-alt}
-; format-prefix-underline = ${colors.underline-1}
-
-; label-layout = %layout%
-; label-layout-underline = ${colors.underline-1}
-
-; label-indicator-padding = 2
-; label-indicator-margin = 1
-; label-indicator-underline = ${colors.underline-1}
+[module/exwm-workspace]
+type = custom/ipc
+hook-0 = emacsclient -e "exwm-workspace-current-index" | sed -e 's/^"//' -e 's/"$//'
+initial = 1
+format-underline = ${colors.underline-1}
+format-padding = 1
 
 [module/cpu]
 type = internal/cpu
@@ -122,19 +80,11 @@ ramp-coreload-4 = ▅
 ramp-coreload-5 = ▆
 ramp-coreload-6 = ▇
 
-[module/memory]
-type = internal/memory
-interval = 2
-format-prefix = "M:"
-format-prefix-foreground = ${colors.foreground-alt}
-format-underline = ${colors.underline-1}
-label = %percentage_used%%
-
 [module/date]
 type = internal/date
 interval = 5
 
-date = "W%U: %a %b %e"
+date = "%a %b %e"
 date-alt = "%A %B %d %Y"
 
 time = %l:%M %p

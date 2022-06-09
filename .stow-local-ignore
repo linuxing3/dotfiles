@@ -24,6 +24,7 @@ mail
 \.config/mimeapps.list
 \.config/qutebrowser/bookmarks/urls
 \.config/qutebrowser/quickmarks
+\.config/nvim
 \.osh-update
 \.profile
 

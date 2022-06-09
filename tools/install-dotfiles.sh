@@ -80,6 +80,20 @@ install_vim() {
 	green "======================="
 
 }
+
+install_neovim() {
+
+	sudo apt install snap
+	sudo /snap/bin/snap install neovim
+	export PATH=$PATH:/snap/bin
+	red "Add to path:"
+	red "           export PATH=$PATH:/snap/bin"
+
+	git clone git@github.com:linuxing3/nvim ~/.config/nvim
+
+	nvim +PackerSync
+}
+
 start_menu() {
 	clear
 	sleep 2

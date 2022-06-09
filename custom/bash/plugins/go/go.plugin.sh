@@ -5,10 +5,13 @@ ggg() {
 		export GOROOT=/usr/local/go
 	elif [ -e $HOME/.go ]; then
 		export GOROOT=$HOME/.go
+	elif [ -e /uos/home/wjb/.go ]; then
+		export GOROOT=/uos/home/wjb/.go
 	fi
-	export GO111MODULE=on
 	export GOPATH=$HOME/go
 	export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+        go env -w GO111MODULE=on
+        go env -w GOPROXY=https://goproxy.cn,direct
 }
 
 go_asm() {

@@ -4,6 +4,6 @@ case ":${PATH}:" in
         ;;
     *)
         export PATH="$HOME/.fnm:$PATH"
-eval "`fnm env`"
+        eval "`fnm env`"
         ;;
 esac

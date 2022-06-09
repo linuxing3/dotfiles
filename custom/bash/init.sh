@@ -12,7 +12,7 @@
 #
 #
 
-snap() {
+snapshot() {
     ts=$(date +%y%m%d-%H%M-%S)
     maim "pic-full-${ts}.png"
     ts=

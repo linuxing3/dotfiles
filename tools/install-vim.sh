@@ -9,9 +9,8 @@ echo "==========================================================="
 echo "vim, one of the best editors"
 echo "==========================================================="
 
-sudo apt-get install -y vim neovim
 
-customize_space() {
+customize_spacevim() {
 	sed -i 's/gruvbox/SpaceVim/g' ~/.SpaceVim.d/init.toml
 	echo "
 
@@ -36,10 +35,11 @@ customize_space() {
 
 option=$(dialog --title " Spacevim 一键安装自动脚本" \
 	--checklist "请输入:" 20 70 5 \
-	"1" "SpaceVim, Full dark side editor" 0 \
-	"2" "space-vim, yet another dist, but ligther" 0 \
-	"3" "fisa-vim, with python support" 0 \
-	"4" "micro, go editor" 0 \
+	"1" "neovim, modern vim style editor" 0 \
+	"2" "SpaceVim, Full dark side editor" 0 \
+	"3" "space-vim, yet another dist, but ligther" 0 \
+	"4" "fisa-vim, with python support" 0 \
+	"5" "micro, go editor" 0 \
 	3>&1 1>&2 2>&3 3>&1)
 
 cd
@@ -48,16 +48,29 @@ rm -rf ~/.vim
 
 case "$option" in
 1)
-	curl -fsSL https://spacevim.org/install.sh | bash
-	customize_space
-	;;
+        sudo apt install snap -y
+        sudo snap install neovim
+	export PATH=$PATH:/snap/bin
+	red "Add to path:"
+	red "           export PATH=$PATH:/snap/bin"
+
+	git clone git@github.com:linuxing3/nvim ~/.config/nvim
+
+	nvim +PackerSync
 2)
-	curl -fsSL https://raw.githubusercontent.com/liuchengxu/space-vim/master/install.sh | bash
+	sudo apt-get install -y vim
+	curl -fsSL https://spacevim.org/install.sh | bash
+	customize_spacevim
 	;;
 3)
-	curl -fsSL https://raw.githubusercontent.com/fisadev/fisa-vim-config/v12.0.1/config.vim -o ~/.vimrc
+	sudo apt-get install -y vim
+	curl -fsSL https://raw.githubusercontent.com/liuchengxu/space-vim/master/install.sh | bash
 	;;
 4)
+	sudo apt-get install -y vim
+	curl -fsSL https://raw.githubusercontent.com/fisadev/fisa-vim-config/v12.0.1/config.vim -o ~/.vimrc
+	;;
+5)
 	curl https://getmic.ro | bash
 	mv micro /usr/local/bin/
 	echo "micro -plugin install comment"

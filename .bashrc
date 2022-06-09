@@ -1,32 +1,31 @@
 export OSH=~/.oh-my-bash
-OSH_THEME="font"
+OSH_THEME="mairan"
 CASE_SENSITIVE="true"
 ENABLE_CORRECTION="true"
 OSH_CUSTOM=~/.dotfiles/custom/bash
 completions=(
-  git
-  composer
-  ssh
-  system
+    git
+    composer
+    ssh
+    system
 )
 aliases=(
-  general
-  vim
+    general
+    vim
 )
 plugins=(
-  bashmarks
-  git
-  snap
-  #fzf
-  vim
-  python
-  #nvm
-  go
-  java
-  python
-  #rust
-  #starship
+    bashmarks
+    git
+    snap
+    fzf
+    vim
+    node
+    go
+    java
+    python
+    lua
+    rust
+    zoxide
+    #starship
 )
 source $OSH/oh-my-bash.sh
-
-. "$HOME/.cargo/env"
