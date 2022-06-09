@@ -64,3 +64,4 @@ alias daav="conda activate"
 
 # Bootstrap
 init-conda
+alias clear=/usr/bin/clear
