@@ -1,0 +1,23 @@
+layout tall
+focus
+cd ~
+launch bash
+
+
+# Split a windows/pane to right
+# new_os_window
+# os_window_size 80c 24c
+# launch bash
+
+new_tab workspace 
+cd ~/workspace
+enabled_layouts tall,stack
+layout stack
+launch nvim ~/workspace 
+
+new_tab dotfiles 
+cd ~/
+enabled_layouts tall,stack
+layout stack
+launch ranger
+
