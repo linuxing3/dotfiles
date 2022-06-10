@@ -13,7 +13,7 @@ new_tab workspace
 cd ~/workspace
 enabled_layouts tall,stack
 layout stack
-launch nvim ~/workspace 
+launch ranger 
 
 new_tab dotfiles 
 cd ~/
