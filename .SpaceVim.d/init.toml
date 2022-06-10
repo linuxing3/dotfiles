@@ -1,0 +1,132 @@
+#=============================================================================
+# dark_powered.toml --- dark powered configuration example for SpaceVim
+# Copyright (c) 2016-2022 Wang Shidong & Contributors
+# Author: Wang Shidong < wsdjeg@outlook.com >
+# URL: https://spacevim.org
+# License: GPLv3
+#=============================================================================
+
+# All SpaceVim option below [option] section
+[options]
+    # set spacevim theme. by default colorscheme layer is not loaded,
+    # if you want to use more colorscheme, please load the colorscheme
+    # layer
+    colorscheme = "onedark"
+    colorscheme_bg = "dark"
+    # Disable guicolors in basic mode, many terminal do not support 24bit
+    # true colors
+    enable_guicolors = true
+    # Disable statusline separator, if you want to use other value, please
+    # install nerd fonts
+    statusline_separator = "arrow"
+    statusline_iseparator = "arrow"
+    buffer_index_type = 4
+    enable_tabline_filetype_icon = true
+    enable_statusline_mode = false
+    autocomplete_method = "coc"
+
+[[layers]]
+name = 'shell'
+default_position = 'top'
+default_height = 30
+
+[[layers]]
+  name = 'fzf'
+
+# Enable autocomplete layer
+[[layers]]
+name = 'autocomplete'
+auto_completion_return_key_behavior = "complete"
+auto_completion_tab_key_behavior = "smart"
+
+[[layers]]
+  name = "treesitter"
+
+[[layers]]
+  name = "format"
+
+[[layers]]
+  name = "lang#python"
+  enable_typeinfo = true
+  format_on_save = true
+  enabled_linters = ['python', 'pylint']
+  python_file_head = [
+      '#!/usr/bin/env python',
+      '# -*- coding: utf-8 -*-',
+      '',
+      ''
+  ]
+
+[[layers]]
+  name = "lang#bash"
+  format_on_save = true
+
+[[layers]]
+  name = "lang#lua"
+  format_on_save = true
+
+[[layers]]
+  name = "lang#go"
+  format_on_save = true
+
+[[layers]]
+  name = "lang#rust"
+  format_on_save = true
+
+[[layers]]
+  name = 'lang#c'
+  enable_clang_syntax_highlight = true
+  format_on_save = true
+
+[[layers]]
+  name = "lang#cmake"
+
+[[layers]]
+  name = "lang#typescript"
+  format_on_save = true
+
+[[layers]]
+  name = "lang#javascript"
+  format_on_save = true
+
+[[layers]]
+  name = "lang#html"
+  emmet_leader_key = "<C-e>"
+  emmet_filetyps = ['html']
+
+[[layers]]
+  name = 'lsp'
+  enabled_clients = ['clangd', 'gopls', 'rls', 'bashls', 'pyright', 'html', 'cssls', 'vls', 'vimls']
+  filetypes = [
+    "c",
+    "cpp",
+    "go",
+    "rust",
+    "sh",
+    "typescript",
+    "javascript",
+    "html",
+    "css",
+    "python",
+    "vim"
+  ]
+  [layers.override_cmd]
+    c = ["clangd"]
+    cpp = ["clangd"]
+    rust = ["rls"]
+    go = ["gopls"]
+    sh = ["bash-language-server"]
+    html = ["vscode-html-language-server"]
+    css = ["vscode-css-language-server"]
+    typescript = ["typescript-language-server"]
+    javascript = ["typescript-language-server"]
+    python = ["pyright"]
+    vim = ["vim-language-server"]
+
+
+[[layers]]
+  name = "debug"
+
+[[custom_plugins]]
+    repo = 'joshdick/onedark.vim'
+    merged = false
